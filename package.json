@@ -1,0 +1,39 @@
+{
+  "name": "husk-cli",
+  "version": "1.0.3",
+  "description": "Directory Scan Utilities",
+  "main": "./lib/husk-cli.js",
+  "bin": {
+    "husk": "./bin/husk"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "prepublish": "grunt clean lint coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benogle/husk-cli.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/benogle/husk-cli/raw/master/LICENSE.md"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/benogle/husk-cli/issues"
+  },
+  "dependencies": {
+    "argparse": "~0.1"
+  },
+  "devDependencies": {
+    "jasmine-focused": "1.x",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-cli": "~0.1.8",
+    "grunt": "~0.4.1",
+    "grunt-shell": "~0.2.2",
+    "grunt-coffeelint": "0.0.6",
+    "temp": "~0.7.0",
+    "rimraf": "~2.1.4"
+  }
+}
