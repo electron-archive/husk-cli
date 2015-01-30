@@ -16,6 +16,8 @@ main = ->
 
   options = argParser.parseArgs()
 
-  console.log options
+  switch options.action
+    when 'run'
+      require('./run').execute(options)
 
 module.exports = {main}
