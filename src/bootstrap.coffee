@@ -6,11 +6,7 @@ Utils = require './utils'
 
 module.exports =
   execute: (options) ->
-    appConfig = Utils.getAppConfig()
-
-    cmd = path.join(Utils.getRunnerPath(), 'script', 'run')
-    args = ['-r', process.cwd(), '--app-config', JSON.stringify(appConfig)]
-
+    cmd = path.join(Utils.getRunnerPath(), 'script', 'bootstrap')
+    args = []
     console.log 'Running', cmd, args
-
     Utils.spawnCommand(cmd, args)

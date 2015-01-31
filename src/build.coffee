@@ -8,8 +8,8 @@ module.exports =
   execute: (options) ->
     appConfig = Utils.getAppConfig()
 
-    cmd = path.join(Utils.getRunnerPath(), 'script', 'run')
-    args = ['-r', process.cwd(), '--app-config', JSON.stringify(appConfig)]
+    cmd = path.join(Utils.getRunnerPath(), 'script', 'build')
+    args = ['--verbose', '--app-config', JSON.stringify(appConfig)]
 
     console.log 'Running', cmd, args
 
