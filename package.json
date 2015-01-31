@@ -12,16 +12,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/benogle/husk-cli.git"
+    "url": "https://github.com/atom/husk-cli.git"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/benogle/husk-cli/raw/master/LICENSE.md"
+      "url": "http://github.com/atom/husk-cli/raw/master/LICENSE.md"
     }
   ],
   "bugs": {
-    "url": "https://github.com/benogle/husk-cli/issues"
+    "url": "https://github.com/atom/husk-cli/issues"
   },
   "dependencies": {
     "argparse": "~0.1"
