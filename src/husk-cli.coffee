@@ -2,11 +2,6 @@
 
 Utils = require './utils'
 
-###
-This CLI is mainly for benchmarking. While there may be useful data output to
-the console, it will probably change. The options will probably change as
-well.
-###
 main = ->
   argParser = new ArgumentParser
     version: require('../package.json').version
