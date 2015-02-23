@@ -6,10 +6,16 @@ main = ->
   argParser = new ArgumentParser
     version: require('../package.json').version
     addHelp: true
-    description: 'Make radium apps go'
+    description: 'Make electron apps go'
 
-  argParser.addArgument([ '-V', '--verbose' ], action: 'storeTrue')
-  argParser.addArgument(['action'])
+  subparsers = argParser.addSubparsers
+    title: 'subcommands'
+    dest: 'subcommand'
+
+  bootstrapArgs = subparsers.addParser('bootstrap', addHelp: true)
+  buildArgs = subparsers.addParser('build', addHelp: true)
+  runArgs = subparsers.addParser('run', addHelp: true)
+  runArgs.addArgument([ '-d', '--dev' ], action: 'storeTrue')
 
   options = argParser.parseArgs()
 
@@ -17,7 +23,7 @@ main = ->
     console.error "You must be at the root of your husk project"
     return
 
-  switch options.action
+  switch options.subcommand
     when 'run'
       require('./run').execute(options)
     when 'build'
