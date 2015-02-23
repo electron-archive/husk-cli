@@ -12,20 +12,28 @@ module.exports =
       return false
 
   getRunnerPath: ->
-    path.join(process.cwd(), 'node_modules', RunnerName)
+    path.join(@getProjectPath(), 'node_modules', RunnerName)
+
+  getProjectPath: ->
+    process.cwd()
 
   getRunnerPacakageJson: ->
     require path.join(@getRunnerPath(), 'package.json')
 
-  getAppPackageJson: ->
-    return @appPackageJson if @appPackageJson?
-    packageJsonPath = path.join(process.cwd(), 'package.json')
-    @appPackageJson = require(packageJsonPath)
+  getApppackageJSON: ->
+    return @apppackageJSON if @apppackageJSON?
+    packageJSONPath = path.join(process.cwd(), 'package.json')
+    @apppackageJSON = require(packageJSONPath)
 
   getAppConfig: ->
-    appPackageJson = @getAppPackageJson()
-    {name, author, version, productName, iconUrl} = appPackageJson
-    {name, author, version, productName, iconUrl}
+    projectPath = @getProjectPath()
+    packageJSON = @getApppackageJSON()
+
+    paths =
+      root: projectPath
+      src: 'src'
+
+    {paths, packageJSON}
 
   spawnCommand: (cmd, args) ->
     cmd = spawn(cmd, args)
