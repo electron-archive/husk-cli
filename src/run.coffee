@@ -10,7 +10,8 @@ module.exports =
 
     cmd = path.join(Utils.getRunnerPath(), 'script', 'run')
     args = ['--app-config', JSON.stringify(appConfig)]
-    args = args.concat ['-d', '-r', process.cwd()] if options.dev
+    args.push('-t') if options.test
+    args = args.concat ['-r', process.cwd()] if options.dev or options.test
 
     console.log 'Running', cmd, args
 

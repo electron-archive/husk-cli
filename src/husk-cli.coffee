@@ -16,6 +16,7 @@ main = ->
   buildArgs = subparsers.addParser('build', addHelp: true)
   runArgs = subparsers.addParser('run', addHelp: true)
   runArgs.addArgument([ '-d', '--dev' ], action: 'storeTrue')
+  runArgs.addArgument([ '-t', '--test' ], action: 'storeTrue')
 
   options = argParser.parseArgs()
 
