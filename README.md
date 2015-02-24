@@ -6,4 +6,6 @@
 husk bootstrap
 husk build
 husk run
+husk run --dev
+husk run --test
 ```
