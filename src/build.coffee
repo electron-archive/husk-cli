@@ -9,7 +9,7 @@ module.exports =
     appConfig = Utils.getAppConfig()
 
     cmd = path.join(Utils.getRunnerPath(), 'script', 'build')
-    args = ['--verbose', '--app-config', JSON.stringify(appConfig)]
+    args = ['--app-config', JSON.stringify(appConfig)]
 
     console.log 'Running', cmd, args
 
