@@ -14,13 +14,17 @@ execute = (options) ->
 compileApp = (options, callback) ->
   projectPath = Utils.getProjectPath()
   projectPackageJSON = Utils.getProjectPackageJSON()
+
   compileCacheDir = path.join(projectPath, projectPackageJSON.compileCacheDir ? 'compile-cache')
+
+  compileDirs = projectPackageJSON.compileDirs
+  compileDirs = ['src'] unless Array.isArray(compileDirs)
+  compileDirs = (path.join(projectPath, dir) for dir in compileDirs)
 
   cmd = path.join(projectPath, 'node_modules', '.bin', 'electron-compile')
   args = [
     '--target', compileCacheDir
-    './src', './styles', './static'
-  ]
+  ].concat(compileDirs)
 
   console.log 'Running', cmd, args
 
