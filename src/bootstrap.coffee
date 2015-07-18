@@ -1,6 +1,7 @@
 {spawn} = require 'child_process'
 fs = require 'fs'
 path = require 'path'
+async = require 'async'
 
 Utils = require './utils'
 
@@ -10,9 +11,12 @@ module.exports =
     projectNodeModulesPath = path.join(Utils.getProjectPath(), 'node_modules')
     electronPrebuiltPath = path.join(projectNodeModulesPath, 'electron-prebuilt')
 
-    console.log 'Running', 'npm install'
-    Utils.spawnCommand 'npm', ['install'], (code) ->
-      if code is 0
+    async.waterfall [
+      (callback) ->
+        console.log 'Running npm install'
+        Utils.spawnCommand 'npm', ['install'], (code) ->
+          callback(code)
+      (callback) ->
         cmd = path.join(__dirname, '..', 'node_modules', '.bin', 'electron-rebuild')
         args = [
           '--version', electronVersion,
@@ -21,3 +25,4 @@ module.exports =
         ]
         console.log 'Running', cmd, args
         Utils.spawnCommand(cmd, args)
+    ]
