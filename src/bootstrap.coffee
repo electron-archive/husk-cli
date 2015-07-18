@@ -14,8 +14,7 @@ module.exports =
     async.waterfall [
       (callback) ->
         console.log 'Running npm install'
-        Utils.spawnCommand 'npm', ['install'], (code) ->
-          callback(code)
+        Utils.spawnCommand 'npm', ['install'], (code) -> callback(code)
       (callback) ->
         cmd = path.join(__dirname, '..', 'node_modules', '.bin', 'electron-rebuild')
         args = [
@@ -24,5 +23,5 @@ module.exports =
           '--module-dir', projectNodeModulesPath
         ]
         console.log 'Running', cmd, args
-        Utils.spawnCommand(cmd, args)
+        Utils.spawnCommand cmd, args, -> callback()
     ]
