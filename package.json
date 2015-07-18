@@ -24,16 +24,18 @@
     "url": "https://github.com/atom/husk-cli/issues"
   },
   "dependencies": {
-    "argparse": "~0.1"
+    "argparse": "~0.1",
+    "electron-rebuild": "^0.2.3"
   },
   "devDependencies": {
-    "jasmine-focused": "1.x",
-    "grunt-contrib-coffee": "~0.7.0",
-    "grunt-cli": "~0.1.8",
     "grunt": "~0.4.1",
-    "grunt-shell": "~0.2.2",
+    "grunt-cli": "~0.1.8",
     "grunt-coffeelint": "0.0.6",
-    "temp": "~0.7.0",
-    "rimraf": "~2.1.4"
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-shell": "~0.2.2",
+    "jasmine-focused": "1.x",
+    "rimraf": "~2.1.4",
+    "temp": "~0.7.0"
   }
 }

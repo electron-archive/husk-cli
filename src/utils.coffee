@@ -1,7 +1,7 @@
 {spawn} = require 'child_process'
 path = require 'path'
 
-RunnerName = 'atom-shell-starter'
+RunnerName = 'electron-prebuilt'
 
 module.exports =
   atRootOfProject: ->
@@ -35,9 +35,6 @@ module.exports =
 
     {paths, packageJSON}
 
-  spawnCommand: (cmd, args) ->
-    cmd = spawn(cmd, args)
-    cmd.stdout.on 'data', (data) ->
-      process.stdout.write data.toString()
-    cmd.stderr.on 'data', (data) ->
-      process.stdout.write data.toString()
+  spawnCommand: (cmd, args, callback) ->
+    cmd = spawn(cmd, args, {stdio: 'inherit'})
+    cmd.on('close', callback) if callback?

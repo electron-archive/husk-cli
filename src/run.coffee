@@ -6,12 +6,9 @@ Utils = require './utils'
 
 module.exports =
   execute: (options) ->
-    appConfig = Utils.getAppConfig()
-
-    cmd = path.join(Utils.getRunnerPath(), 'script', 'run')
-    args = ['--app-config', JSON.stringify(appConfig)]
-    args.push('-t') if options.test
-    args = args.concat ['-r', process.cwd()] if options.dev or options.test
+    appPath = Utils.getProjectPath()
+    cmd = path.join(appPath, 'node_modules', '.bin', 'electron')
+    args = [appPath]
 
     console.log 'Running', cmd, args
 
