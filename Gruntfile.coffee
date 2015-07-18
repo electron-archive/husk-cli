@@ -20,6 +20,16 @@ module.exports = (grunt) ->
       src: ['src/*.coffee']
       test: ['spec/*.coffee']
 
+    watch: {
+      scripts: {
+        files: ['src/*.coffee'],
+        tasks: ['default'],
+        options: {
+          spawn: false,
+        },
+      },
+    },
+
     shell:
       test:
         command: 'jasmine-focused --captureExceptions --coffee spec/'
@@ -31,6 +41,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-coffee')
   grunt.loadNpmTasks('grunt-shell')
   grunt.loadNpmTasks('grunt-coffeelint')
+  grunt.loadNpmTasks('grunt-contrib-watch')
 
   grunt.registerTask 'clean', -> require('rimraf').sync('lib')
   grunt.registerTask('lint', ['coffeelint:src', 'coffeelint:test'])
