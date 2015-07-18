@@ -1,6 +1,6 @@
 {
   "name": "husk-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Husk command line interface. Build, run, and test husk apps.",
   "main": "./lib/husk-cli.js",
   "bin": {
