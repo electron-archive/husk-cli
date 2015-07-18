@@ -12,11 +12,11 @@ main = ->
     title: 'subcommands'
     dest: 'subcommand'
 
-  bootstrapArgs = subparsers.addParser('bootstrap', addHelp: true)
-  buildArgs = subparsers.addParser('build', addHelp: true)
   runArgs = subparsers.addParser('run', addHelp: true)
-  runArgs.addArgument([ '-d', '--dev' ], action: 'storeTrue')
-  runArgs.addArgument([ '-t', '--test' ], action: 'storeTrue')
+  buildArgs = subparsers.addParser('build', addHelp: true)
+  buildArgs.addArgument([ '-p', '--platform' ])
+  buildArgs.addArgument([ '-a', '--arch' ])
+  bootstrapArgs = subparsers.addParser('bootstrap', addHelp: true)
 
   options = argParser.parseArgs()
 

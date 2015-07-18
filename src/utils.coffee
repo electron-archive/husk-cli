@@ -6,34 +6,24 @@ RunnerName = 'electron-prebuilt'
 module.exports =
   atRootOfProject: ->
     try
-      @getRunnerPacakageJson()
+      @getRunnerPacakageJSON()
       return true
     catch e
       return false
 
-  getRunnerPath: ->
-    path.join(@getProjectPath(), 'node_modules', RunnerName)
-
   getProjectPath: ->
     process.cwd()
 
-  getRunnerPacakageJson: ->
+  getProjectPackageJSON: ->
+    return @projectPackageJSON if @projectPackageJSON?
+    packageJSONPath = path.join(@getProjectPath(), 'package.json')
+    @projectPackageJSON = require(packageJSONPath)
+
+  getRunnerPath: ->
+    path.join(@getProjectPath(), 'node_modules', RunnerName)
+
+  getRunnerPacakageJSON: ->
     require path.join(@getRunnerPath(), 'package.json')
-
-  getApppackageJSON: ->
-    return @apppackageJSON if @apppackageJSON?
-    packageJSONPath = path.join(process.cwd(), 'package.json')
-    @apppackageJSON = require(packageJSONPath)
-
-  getAppConfig: ->
-    projectPath = @getProjectPath()
-    packageJSON = @getApppackageJSON()
-
-    paths =
-      root: projectPath
-      src: 'src'
-
-    {paths, packageJSON}
 
   spawnCommand: (cmd, args, callback) ->
     cmd = spawn(cmd, args, {stdio: 'inherit'})

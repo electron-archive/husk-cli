@@ -6,10 +6,19 @@ Utils = require './utils'
 
 module.exports =
   execute: (options) ->
-    appConfig = Utils.getAppConfig()
+    projectPath = Utils.getProjectPath()
+    projectPackageJSON = Utils.getProjectPackageJSON()
+    electronVersion = Utils.getRunnerPacakageJSON().version
 
-    cmd = path.join(Utils.getRunnerPath(), 'script', 'build')
-    args = ['--app-config', JSON.stringify(appConfig)]
+    cmd = path.join(__dirname, '..', 'node_modules', '.bin', 'electron-packager')
+    args = [
+      projectPath, projectPackageJSON.appName,
+      '--overwrite'
+      '--platform', options.platform ? 'darwin',
+      '--arch', options.arch ? 'x64',
+      '--version', electronVersion
+      '--out', path.join(projectPath, 'release')
+    ]
 
     console.log 'Running', cmd, args
 

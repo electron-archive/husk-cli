@@ -6,7 +6,7 @@ Utils = require './utils'
 
 module.exports =
   execute: (options) ->
-    electronVersion = Utils.getRunnerPacakageJson().version
+    electronVersion = Utils.getRunnerPacakageJSON().version
     projectNodeModulesPath = path.join(Utils.getProjectPath(), 'node_modules')
     electronPrebuiltPath = path.join(projectNodeModulesPath, 'electron-prebuilt')
 
