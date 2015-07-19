@@ -1,11 +1,14 @@
-# Husk cli
+# Electron cli
 
-`cd` to your husk app, then you can run:
+`cd` to your app, then you can run:
 
 ```
+# Installs modules, and builds native modules against electron headers
 husk bootstrap
-husk build
+
+# Run your app in dev mode
 husk run
-husk run --dev
-husk run --test
+
+# Package up your app for release. Packs everything into `./release` directory
+husk build
 ```
