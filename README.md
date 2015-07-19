@@ -2,7 +2,7 @@
 
 `cd` to your app, then you can run:
 
-```
+```bash
 # Installs modules, and builds native modules against electron headers
 husk bootstrap
 
