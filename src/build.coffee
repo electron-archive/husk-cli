@@ -22,13 +22,16 @@ compileApp = (options, callback) ->
   compileDirs = (path.join(projectPath, dir) for dir in compileDirs)
 
   cmd = path.join(projectPath, 'node_modules', '.bin', 'electron-compile')
-  args = [
-    '--target', compileCacheDir
-  ].concat(compileDirs)
+  if fs.existsSync(cmd)
+    args = [
+      '--target', compileCacheDir
+    ].concat(compileDirs)
 
-  console.log 'Running', cmd, args
+    console.log 'Running', cmd, args
 
-  Utils.spawnCommand(cmd, args, callback)
+    Utils.spawnCommand(cmd, args, callback)
+  else
+    callback()
 
 packageApp = (options, callback) ->
   projectPath = Utils.getProjectPath()
