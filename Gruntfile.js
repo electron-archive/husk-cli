@@ -36,7 +36,7 @@ module.exports = function(grunt) {
 
     shell: {
       test: {
-        command: 'jasmine',
+        command: 'node_modules/.bin/jasmine',
         options:{
           stdout: true,
           stderr: true,
