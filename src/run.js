@@ -2,11 +2,16 @@ var path = require('path')
 var Utils = require('./utils')
 
 module.exports = {
-  execute: function() {
+  execute: function(argv) {
     var appPath = Utils.getProjectPath()
     var cmd = path.join(appPath, 'node_modules', '.bin', 'electron')
     var args = [appPath, '--environment', 'development']
-    console.log('Running', cmd, args)
-    Utils.spawnCommand(cmd, args)
+    Utils.logVerbose(argv, 'Running', cmd, args)
+    Utils.spawnCommand(cmd, args, function(err) {
+      if (err){
+        Utils.logError({color: true}, `"${cmd}" not found.`)
+        Utils.logWarning({color: true}, `Make sure your're in a husk app and you have run '${argv.$0} bootstrap'`)
+      }
+    })
   }
 }
