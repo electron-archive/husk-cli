@@ -1,34 +1,23 @@
-var spawn = require('child_process').spawn
 var fs = require('fs')
 var path = require('path')
 var async = require('async')
 var Utils = require('./utils')
 
-execute = function(options) {
-  async.waterfall([
-    function(callback) {
-      compileApp(options, callback)
-    }, function(callback) {
-      packageApp(options, callback)
-    }
-  ])
-}
-
-compileApp = function(options, callback) {
+var compileApp = function(options, callback) {
   var projectPath = Utils.getProjectPath()
   var projectPackageJSON = Utils.getProjectPackageJSON()
-  var compileCacheDir = path.join(projectPath, (dir = projectPackageJSON.compileCacheDir) != null ? dir : 'compile-cache')
+  var compileCacheDir = path.join(projectPath, projectPackageJSON.compileCacheDir || 'compile-cache')
   var compileDirs = projectPackageJSON.compileDirs
 
   if (!Array.isArray(compileDirs))
     compileDirs = ['src']
 
   for (var i = 0; i < compileDirs.length; i++)
-    compileDirs[i] = results.push(path.join(projectPath, compileDirs[i]))
+    compileDirs[i] = path.join(projectPath, compileDirs[i])
 
   var cmd = path.join(projectPath, 'node_modules', '.bin', 'electron-compile')
   if (fs.existsSync(cmd)) {
-    args = ['--target', compileCacheDir].concat(compileDirs)
+    var args = ['--target', compileCacheDir].concat(compileDirs)
     console.log('Running', cmd, args)
     Utils.spawnCommand(cmd, args, callback)
   } else {
@@ -36,7 +25,7 @@ compileApp = function(options, callback) {
   }
 }
 
-packageApp = function(options, callback) {
+var packageApp = function(options, callback) {
   var projectPath = Utils.getProjectPath()
   var projectPackageJSON = Utils.getProjectPackageJSON()
   var electronVersion = Utils.getRunnerPacakageJSON().version
@@ -60,6 +49,16 @@ packageApp = function(options, callback) {
   ]
   console.log('Running', cmd, args)
   Utils.spawnCommand(cmd, args, callback)
+}
+
+var execute = function(options) {
+  async.waterfall([
+    function(callback) {
+      compileApp(options, callback)
+    }, function(callback) {
+      packageApp(options, callback)
+    }
+  ])
 }
 
 module.exports = { execute: execute }

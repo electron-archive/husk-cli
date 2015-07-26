@@ -15,11 +15,10 @@ module.exports = {
     return process.cwd()
   },
   getProjectPackageJSON: function() {
-    if (this.projectPackageJSON != null) {
+    if (this.projectPackageJSON != null)
       return this.projectPackageJSON
-    }
-    var packageJSONPath = path.join(this.getProjectPath(), 'package.json')
-    return this.projectPackageJSON = require(packageJSONPath)
+    this.projectPackageJSON = require(path.join(this.getProjectPath(), 'package.json'))
+    return this.projectPackageJSON
   },
   getRunnerPath: function() {
     return path.join(this.getProjectPath(), 'node_modules', RunnerName)

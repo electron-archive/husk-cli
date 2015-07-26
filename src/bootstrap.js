@@ -1,11 +1,9 @@
-var spawn = require('child_process').spawn
-var fs = require('fs')
 var path = require('path')
 var async = require('async')
 var Utils = require('./utils')
 
 module.exports = {
-  execute: function(options) {
+  execute: function() {
     var electronVersion = Utils.getRunnerPacakageJSON().version
     var projectNodeModulesPath = path.join(Utils.getProjectPath(), 'node_modules')
     var electronPrebuiltPath = path.join(projectNodeModulesPath, 'electron-prebuilt')
