@@ -2,27 +2,24 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
 
-    coffee:
-      glob_to_multiple:
-        expand: true
-        cwd: 'src'
-        src: ['*.coffee']
-        dest: 'lib'
-        ext: '.js'
-
-    coffeelint:
-      options:
-        no_empty_param_list:
-          level: 'error'
-        max_line_length:
-          level: 'ignore'
-
-      src: ['src/*.coffee']
-      test: ['spec/*.coffee']
+    babel: {
+      options: {
+        sourceMap: false
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'src',
+          src: ['**/*.js'],
+          dest: "lib",
+          ext: ".js"
+        }]
+      }
+    }
 
     watch: {
       scripts: {
-        files: ['src/*.coffee'],
+        files: ['src/*.js'],
         tasks: ['default'],
         options: {
           spawn: false,
@@ -38,12 +35,11 @@ module.exports = (grunt) ->
           stderr: true
           failOnError: true
 
-  grunt.loadNpmTasks('grunt-contrib-coffee')
+  grunt.loadNpmTasks('grunt-babel')
   grunt.loadNpmTasks('grunt-shell')
-  grunt.loadNpmTasks('grunt-coffeelint')
   grunt.loadNpmTasks('grunt-contrib-watch')
 
   grunt.registerTask 'clean', -> require('rimraf').sync('lib')
-  grunt.registerTask('lint', ['coffeelint:src', 'coffeelint:test'])
-  grunt.registerTask('default', ['lint', 'coffee'])
+  # grunt.registerTask('lint', ['coffeelint:src', 'coffeelint:test'])
+  grunt.registerTask('default', ['babel'])
   grunt.registerTask('test', ['default', 'shell:test'])
