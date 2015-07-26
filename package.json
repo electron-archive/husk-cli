@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "grunt test",
-    "prepublish": "grunt clean lint coffee"
+    "prepublish": "grunt clean lint babel"
   },
   "repository": {
     "type": "git",
@@ -33,8 +33,7 @@
     "grunt": "~0.4.1",
     "grunt-babel": "^5.0.1",
     "grunt-cli": "~0.1.8",
-    "grunt-coffeelint": "0.0.6",
-    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-jshint": "^0.11.2",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-shell": "~0.2.2",
     "jasmine-focused": "1.x",
