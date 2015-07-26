@@ -1,45 +1,32 @@
-var ArgumentParser = require('argparse').ArgumentParser
+let yargs = require('yargs')
 var Utils = require('./utils')
 
-var main = function() {
-  var argParser, bootstrapArgs, buildArgs, options, runArgs, subparsers
+let runCommand = function(command, argv) {
+  Utils.logVerbose(argv, 'Command:', command, argv);
+  require(`./${command}`).execute(argv)
+}
 
-  argParser = new ArgumentParser({
-    version: require('../package.json').version,
-    addHelp: true,
-    description: 'Make electron apps go'
-  })
-  subparsers = argParser.addSubparsers({
-    title: 'subcommands',
-    dest: 'subcommand'
-  })
-  runArgs = subparsers.addParser('run', {
-    addHelp: true
-  })
-  buildArgs = subparsers.addParser('build', {
-    addHelp: true
-  })
-  buildArgs.addArgument(['-p', '--platform'])
-  buildArgs.addArgument(['-a', '--arch'])
-  bootstrapArgs = subparsers.addParser('bootstrap', {
-    addHelp: true
-  })
-  options = argParser.parseArgs()
-  if (!Utils.atRootOfProject()) {
-    console.error("You must be at the root of your husk project")
-    return
-  }
-  switch (options.subcommand) {
-    case 'run':
-      require('./run').execute(options)
-      break
-    case 'build':
-      require('./build').execute(options)
-      break
-    case 'bootstrap':
-      require('./bootstrap').execute(options)
-      break
+let main = function() {
+  let argv = yargs.usage("$0 command")
+    .command("run", "Run your electron app", function(yargs) {
+      runCommand('run', yargs.argv)
+    })
+    .command("build", "Build your electron app for distribution", function(yargs) {
+      runCommand('build', yargs.argv)
+    })
+    .command("bootstrap", "Install dependencies and build native modules against electron", function(yargs) {
+      runCommand('bootstrap', yargs.argv)
+    })
+    .demand(1, "Must provide a valid command")
+    .help("h")
+    .alias("h", "help")
+    .alias("v", "verbose")
+    .argv
+
+  if (['run', 'build', 'bootstrap'].indexOf(argv._[0]) < 0){
+    yargs.showHelp()
+    console.error('Invalid command: ' + argv._[0]);
   }
 }
 
-module.exports = { main: main }
+module.exports = { main: main, runCommand: runCommand }
